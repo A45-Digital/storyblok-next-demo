@@ -21,6 +21,10 @@ export default async function preview(req, res) {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData({})
 
+  // Set cookie to None, so it can be read in the Storyblok iframe
+  const cookies = res.getHeader('Set-Cookie')
+  res.setHeader('Set-Cookie', cookies.map((cookie) => cookie.replace('SameSite=Lax', 'SameSite=None')))
+
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
   res.writeHead(307, { Location: `/posts/${post?.PostItem?.slug}` })
