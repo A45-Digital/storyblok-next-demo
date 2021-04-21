@@ -16,9 +16,9 @@ export default async function preview(req, res) {
   const cookies = res.getHeader('Set-Cookie')
   res.setHeader('Set-Cookie', cookies.map((cookie) => cookie.replace('SameSite=Lax', 'SameSite=None')))
 
-  console.log('DEBUG: preview(): redirect to:', `/${req.query.slug}`)
+  console.log('DEBUG: preview(): redirect to:', `${req.query.slug}`)
 
   // Redirect to the path from the fetched post
-  res.redirect(`/${req.query.slug}`)
+  res.redirect(`${req.query.slug}`)
   res.end()
 }
